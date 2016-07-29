@@ -48,7 +48,7 @@
 
 					var wt = plus.nativeUI.showWaiting(); 
 					var url=plus.storage.getItem("url");
-					var task = plus.uploader.createUpload(url+"/img/imgUpload.do", {
+					var task = plus.uploader.createUpload(url+"/img/imgUpload.ashx", {
 						method: "post",
 						timeout: 300
 					}, function(upload, status) {
@@ -151,7 +151,7 @@
 				var url=plus.storage.getItem("url");
 				mui.ajax({
 					type: "post", 
-					url: url+"/img/imgUpdate.do",
+					url: url+"/img/imgUpdate.ashx",
 					data: {
 						token: token,
 						uimg: uimg

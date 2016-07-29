@@ -45,7 +45,7 @@
 			var url=plus.storage.getItem("url");
 			var wt=plus.nativeUI.showWaiting(); 
 			mui.ajax({
-			    url:url+'/release/releaseSelect.do',
+			    url:url+'/release/releaseSelect.ashx',
 			    dataType: 'json',
 			    type:'post',
 			    timeout: 10000,
@@ -121,7 +121,7 @@
 			        str+="<h5 style='float: right;' class='mui-ellipsis mui-text-right'>空位数：";
 			        str+=data[i].carnum+"</h5></div>";
 			        str+="<div class='mui-table-cell mui-col-xs-4 mui-text-right'><span class='mui-h5 mui-ellipsis'>";        
-			        var d=data[i].datetime;
+			        var d=data[i].datetime.toString().substring(0,10);
 			        str+=d+"</span></div></div></li>";
 			        if(i!=len-1){
 			        	str+="<hr>";

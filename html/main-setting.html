@@ -218,9 +218,8 @@
 				}else{
 					document.getElementById("uname").innerHTML=userInfo.nname;
 				}
-				console.log(JSON.stringify(userInfo));
-				document.getElementById("uimg").src=url+"/images/user/"+userInfo.token+".jpg";
-				
+/*				console.log(userInfo.uimg);*/
+				document.getElementById("uimg").src=url+"/../images/user/"+userInfo.token+".jpg";
 				document.getElementById("uid").innerHTML=userInfo.username;
 			}
 			document.getElementById("cache").addEventListener("tap",function(){
@@ -305,8 +304,7 @@
 			location.reload();
 		});
 		window.addEventListener("changeInfo", function(event) {
-			console.log(event.detail.name);
-			document.getElementById("uname").innerHTML=event.detail.name;
+			document.getElementById("uname").src=event.detail.name;
 		});
 	</script>
 </html>

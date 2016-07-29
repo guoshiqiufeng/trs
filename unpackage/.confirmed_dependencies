@@ -36,9 +36,7 @@
     ],
     "refer": [
       "html/moreCar.html",
-      "html/moreRelease.html",
-      "html/supages/subCarReadOnly.html",
-      "html/supages/subReleaseReadOnly.html"
+      "html/moreRelease.html"
     ]
   },
   "html/template.html": {
@@ -231,20 +229,6 @@
       "js/mui.min.js",
       "css/mui.min.css",
       "fonts/mui.ttf"
-    ]
-  },
-  "html/supages/subCarReadOnly.html": {
-    "resources": [
-      "js/template.js",
-      "js/mui.min.js",
-      "css/mui.min.css"
-    ]
-  },
-  "html/supages/subReleaseReadOnly.html": {
-    "resources": [
-      "js/template.js",
-      "js/mui.min.js",
-      "css/mui.min.css"
     ]
   }
 }

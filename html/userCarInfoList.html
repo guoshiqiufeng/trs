@@ -52,7 +52,7 @@
 				var wt = plus.nativeUI.showWaiting(); 
 				mui.ajax({
 					type: "post",
-					url: url+"/car/carSelect.do",
+					url: url+"/car/carSelect.ashx",
 					async: true,
 					data: {
 						token:token
@@ -118,7 +118,7 @@
 					var url=plus.storage.getItem("url");
 					mui.ajax({
 					type: "post",
-					url: url+"/car/carDelete.do",
+					url: url+"/car/carDelete.ashx",
 					async: true,
 					data: {
 						id:id

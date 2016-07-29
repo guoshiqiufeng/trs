@@ -76,7 +76,7 @@
 				var wt = plus.nativeUI.showWaiting(); 
 				mui.ajax({
 					type: "post",
-					url: url+"/car/carSelectOne.do",
+					url: url+"/car/carSelectOne.ashx",
 					async: true,
 					data: {
 						id:id
@@ -192,7 +192,7 @@
 								console.log(id);
 								mui.ajax({
 								type: "post",
-								url: url+"/car/carEdit.do",
+								url: url+"/car/carEdit.ashx",
 								async: true,
 								data: {
 									id:id,

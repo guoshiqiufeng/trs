@@ -1,9 +1,9 @@
 {
 	"@platforms": ["android", "iPhone", "iPad"],
 	"id": "H59FE6BF6",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "搭搭圈",/*应用名称，程序桌面图标名称*/
+	"name": "trs",/*应用名称，程序桌面图标名称*/
 	"version": {
-		"name": "1.1.0",/*应用版本名称*/
+		"name": "1.0.0",/*应用版本名称*/
 		"code": "83"
 	},
 	"description": "",/*应用描述信息*/
@@ -166,8 +166,8 @@
 				"ios": {
 					"iphone": {
 						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
-						"retina35": "F:/资料/TRS/启动页/640X960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
-						"retina40": "F:/资料/TRS/启动页/640X1136.png","retina47":"F:/资料/TRS/启动页/750X1334.png"
+						"retina35": "C:/Users/皓强/Desktop/TRS/启动页/640X960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "C:/Users/皓强/Desktop/TRS/启动页/640X1136.png","retina47":"C:/Users/皓强/Desktop/TRS/启动页/750X1334.png"
 					},
 					"ipad": {
 						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
@@ -183,9 +183,9 @@
 				"android": {
 					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
 					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
-					"hdpi": "F:/资料/TRS/启动页/480X762.png", /*高分屏启动图片，分辨率：480x762*/
-					"xhdpi": "F:/资料/TRS/启动页/720X1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
-					"xxhdpi": "F:/资料/TRS/启动页/1080X1882.png"
+					"hdpi": "C:/Users/皓强/Desktop/TRS/启动页/480X762.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "C:/Users/皓强/Desktop/TRS/启动页/720X1242.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "C:/Users/皓强/Desktop/TRS/启动页/1080X1882.png"
 				}
 			}
 		}
@@ -230,9 +230,7 @@
 				],
 				"refer": [
 					"html/moreCar.html",
-					"html/moreRelease.html",
-					"html/supages/subCarReadOnly.html",
-					"html/supages/subReleaseReadOnly.html"
+					"html/moreRelease.html"
 				],
 				"priority": 0
 			},
@@ -445,24 +443,6 @@
 					"js/mui.min.js",
 					"css/mui.min.css",
 					"fonts/mui.ttf"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"html/supages/subCarReadOnly.html": {
-				"resources": [
-					"js/template.js",
-					"js/mui.min.js",
-					"css/mui.min.css"
-				],
-				"refer": [],
-				"priority": 0
-			},
-			"html/supages/subReleaseReadOnly.html": {
-				"resources": [
-					"js/template.js",
-					"js/mui.min.js",
-					"css/mui.min.css"
 				],
 				"refer": [],
 				"priority": 0

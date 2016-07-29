@@ -52,7 +52,7 @@
 				var wt = plus.nativeUI.showWaiting(); 
 				mui.ajax({
 					type: "post",
-					url: url+"/release/releaseSelect.do",
+					url: url+"/release/releaseSelect.ashx",
 					async: true,
 					data: {
 						token:token
@@ -111,7 +111,7 @@
 					var url=plus.storage.getItem("url");
 					mui.ajax({
 					type: "post",
-					url: url+"/release/releaseDelete.do",
+					url: url+"/release/releaseDelete.ashx",
 					async: true,
 					data: {
 						id:id
