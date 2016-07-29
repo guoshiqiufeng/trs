@@ -1,5 +1,5 @@
 # trs
-## 基于mui进行开发的app --java后台版
+## 基于mui进行开发的app --net后台版
 
 ##截图
 ![image](https://github.com/guoshiqiufeng/lovefood/blob/master/trs/1.png)
