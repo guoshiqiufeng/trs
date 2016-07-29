@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>修改用户资料子页面</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 id="title" class="mui-title">顺风车</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="info">
+				
+			</ul>
+			
+		</div>
+		
+		<script type="text/html" id="infoTmpl">
+			<li class="mui-table-view-cell mui-input-row">
+				<label>
+					发布人
+				</label>
+				<input id="username" value="{{username}}" readonly="readonly" type="text" placeholder="请选择出发地"/>
+			</li>
+			<li class="mui-table-view-cell mui-input-row">
+				<label>
+					出发地
+				</label>
+				<input id="startPlace" value="{{startPlace}}" readonly="readonly" type="text" placeholder="请选择出发地"/>
+			</li>
+			<li class="mui-table-view-cell mui-input-row">
+				<label>
+					目的地
+				</label>
+				<input id="endPlace" value="{{endPlace}}" readonly="readonly" type="text" placeholder="请选择目的地"/>
+			</li>
+			<li class="mui-table-view-cell mui-input-row">
+				<label>
+					出发日期
+				</label>
+				<input id="date" readonly="readonly" value="{{datetime}}" type="text" placeholder="请选择出发时间"/>
+			</li>
+			<li class="mui-table-view-cell mui-input-row">
+				<label>
+					出发时间
+				</label>
+				<input id="time" readonly="readonly" value="{{time}}" type="text" placeholder="请选择出发时间"/>
+			</li>
+			<li class="mui-table-view-cell mui-input-row">
+				<label>
+				乘车人数 <span class="description" style="right: 105px;text-align: right;">
+				</label>
+				<div class="mui-numbox" data-numbox-min='{{carnum}}' data-numbox-max="{{carnum}}">
+					<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+					<input id="numbox" readonly="readonly" class="mui-numbox-input" type="number" value="{{carnum}}" />
+					<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+				</div>
+			</li>
+			
+			<li class="mui-table-view-cell mui-input-row">
+				<label>
+					联系方式
+				</label>
+				<input id="phone" type="number" value="{{phone}}" placeholder="请输入联系方式"/>
+			</li>
+		</script>	
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/template.js" ></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				/*var parent = self.parent();
+				console.log(self.result.id);*/
+				var id = self.result.id;
+				
+				var url=plus.storage.getItem("url");
+				var wt = plus.nativeUI.showWaiting(); 
+				mui.ajax({
+					type: "post",
+					url: url+"/car/carSelectOne.do",
+					async: true,
+					data: {
+						id:id
+					},
+					dataType: "json",
+					timeout: 1000,
+					success: function(data) {
+						wt.close();
+						
+						if(data[0].status==1){
+							var info = document.getElementById("info");
+							var result = data[0].car;
+							
+							var content = template("infoTmpl", result);
+							info.innerHTML = content;
+							mui('.mui-numbox').numbox();
+					
+						
+				    	}
+					},
+					error: function(xhr, type, errorThrown) {
+						wt.close();
+						plus.nativeUI.toast("出错了！");
+						console.log(errorThrown);
+					}
+				});
+			});
+			
+			
+		</script>
+	</body>
+
+</html>
