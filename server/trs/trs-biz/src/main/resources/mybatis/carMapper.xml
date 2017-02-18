@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.autumn.trs.biz.basic.dao.carDao" >
+  <resultMap id="BaseResultMap" type="cn.autumn.trs.client.basic.car" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="startDate" property="startdate" jdbcType="VARCHAR" />
+    <result column="startTime" property="starttime" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="car_number" property="carNumber" jdbcType="VARCHAR" />
+    <result column="car_name" property="carName" jdbcType="VARCHAR" />
+    <result column="car_sum" property="carSum" jdbcType="INTEGER" />
+    <result column="car_destination" property="carDestination" jdbcType="VARCHAR" />
+    <result column="car_origin" property="carOrigin" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_id, startDate, startTime, phone, car_number, car_name, car_sum, car_destination, 
+    car_origin, type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from car
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from car
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="cn.autumn.trs.client.basic.car" >
+    insert into car (id, user_id, startDate, 
+      startTime, phone, car_number, 
+      car_name, car_sum, car_destination, 
+      car_origin, type)
+    values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{startdate,jdbcType=VARCHAR}, 
+      #{starttime,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{carNumber,jdbcType=VARCHAR}, 
+      #{carName,jdbcType=VARCHAR}, #{carSum,jdbcType=INTEGER}, #{carDestination,jdbcType=VARCHAR}, 
+      #{carOrigin,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.autumn.trs.client.basic.car" >
+    insert into car
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="startdate != null" >
+        startDate,
+      </if>
+      <if test="starttime != null" >
+        startTime,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="carNumber != null" >
+        car_number,
+      </if>
+      <if test="carName != null" >
+        car_name,
+      </if>
+      <if test="carSum != null" >
+        car_sum,
+      </if>
+      <if test="carDestination != null" >
+        car_destination,
+      </if>
+      <if test="carOrigin != null" >
+        car_origin,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="startdate != null" >
+        #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="carNumber != null" >
+        #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carName != null" >
+        #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carSum != null" >
+        #{carSum,jdbcType=INTEGER},
+      </if>
+      <if test="carDestination != null" >
+        #{carDestination,jdbcType=VARCHAR},
+      </if>
+      <if test="carOrigin != null" >
+        #{carOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.autumn.trs.client.basic.car" >
+    update car
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="startdate != null" >
+        startDate = #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null" >
+        startTime = #{starttime,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="carNumber != null" >
+        car_number = #{carNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="carName != null" >
+        car_name = #{carName,jdbcType=VARCHAR},
+      </if>
+      <if test="carSum != null" >
+        car_sum = #{carSum,jdbcType=INTEGER},
+      </if>
+      <if test="carDestination != null" >
+        car_destination = #{carDestination,jdbcType=VARCHAR},
+      </if>
+      <if test="carOrigin != null" >
+        car_origin = #{carOrigin,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.autumn.trs.client.basic.car" >
+    update car
+    set user_id = #{userId,jdbcType=BIGINT},
+      startDate = #{startdate,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      car_number = #{carNumber,jdbcType=VARCHAR},
+      car_name = #{carName,jdbcType=VARCHAR},
+      car_sum = #{carSum,jdbcType=INTEGER},
+      car_destination = #{carDestination,jdbcType=VARCHAR},
+      car_origin = #{carOrigin,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="listAll" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+    from car
+    where type = #{type,jdbcType=BIGINT}
+    <if test="userId != null" >
+        and user_id = #{userId,jdbcType=BIGINT}
+     </if>
+  </select>
+</mapper>

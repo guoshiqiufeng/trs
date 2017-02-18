@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<style>
+			html,body {
+				background-color: #efeff4;
+			}
+			.title{
+				margin: 20px 15px 10px;
+				color: #6d6d72;
+				font-size: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div class="mui-content-padded"> 
+	         	<div style="float: left;">
+	         		<img src="../images/index/ml.png" />
+	         	</div>
+	         	<div style="float: left;margin:10px;">最新空位
+	         	</div>
+	         	<div style="float: right;margin:8px;">
+	         		<img src="../images/index/next.png"/>
+	         	</div>
+	         	<div id="moreRelease" style="float: right;margin:10px;">更多
+	         	</div>
+	     	</div>
+		    <div class="mui-content-padded" style="clear:both;" id="refreshContainer">
+	     		<ul id="kongul" class="mui-table-view mui-grid-view">
+	     			
+			    </ul>
+	     	</div>
+	     	<div class="mui-content-padded"> 
+	         	<div style="float: left;">
+	         		<img src="../images/index/ml.png" />
+	         	</div>
+	         	<div style="float: left;margin:10px;">最新拼车
+	         	</div>
+	         	<div style="float: right;margin:8px;">
+	         		<img src="../images/index/next.png"/>
+	         	</div>
+	         	<div id="moreCar" style="float: right;margin:10px;">更多
+	         	</div>
+	     	</div>
+		    <div class="mui-content-padded" style="clear:both;" id="refreshContainer">
+	     		<ul id="carul" class="mui-table-view mui-grid-view">
+			    </ul>
+	     	</div>
+		</div>
+	</body>
+	<script src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../js/jquery.min.js" ></script>
+	<script>
+		mui.init({
+			swipeBack:true //启用右滑关闭功能
+		});
+		mui.plusReady(function(){
+			var url=plus.storage.getItem("url");
+			var wt = plus.nativeUI.showWaiting(); 
+			mui.ajax({
+			    url:url+'/release/releaseSelect.do',
+			    dataType: 'json',
+			    type:'post',
+			    timeout: 10000,
+			    success:function(data){
+			    	wt.close();
+			    	if(data[0].status==1){
+			    		setdata(data[0].car);
+			    		data=JSON.stringify(data[0].car);
+			      		localStorage.setItem("releasedata",data); 
+			    	}
+			    	
+			    	 
+			    },
+			    error:function(){
+			    	wt.close();
+			        var data=JSON.parse(localStorage.getItem("releasedata"));
+			        if(data){
+			        	setdata(data);
+			        }else{
+			        	plus.nativeUI.toast("连接服务器失败，请稍候重试！");
+			        }
+			    }
+			});
+			mui.ajax({
+			    url:url+'/car/carSelect.do',
+			    dataType: 'json',
+			    type:'post',
+			    timeout: 10000,
+			    success:function(data){
+			    	wt.close();
+			    	//console.log(JSON.stringify(data[0].car));
+			    	if(data[0].status==1){
+			    		setCardata(data[0].car);
+			    		data=JSON.stringify(data[0].car);
+			      		localStorage.setItem("cardata",data); 
+			    	}
+			    	
+			    	 
+			    },
+			    error:function(){
+			    	wt.close();
+			        var data=JSON.parse(localStorage.getItem("cardata"));
+			        if(data){
+			        	setCardata(data);
+			        }else{
+			        	plus.nativeUI.toast("连接服务器失败，请稍候重试！");
+			        }
+			    }
+			});
+		});
+		
+		function setdata(data) {
+				var str="";
+				var len=data.length>4?4:data.length;
+				for(var i=0;i<len;i++){
+					str+="<li onclick='releaseReadOnly("+data[i].id+")' class='mui-table-view-cell mui-media mui-col-xs-12'><div class='mui-table'><div class='mui-table-cell mui-col-xs-8'>";
+					str+="<h4 class='mui-ellipsis mui-text-left'>";
+	     			str+=data[i].startPlace+" -- "+data[i].endPlace+"</h4>";	
+			        str+="<h5 style='float: left;' class='mui-ellipsis mui-text-left'>发布人：";        
+			        str+=data[i].username+"</h5><br><h5 class='mui-ellipsis mui-text-left'>";
+			        str+="联系方式："+data[i].phone+"</h5>";
+			        str+="<h5 style='float: left;' class='mui-ellipsis mui-text-left'>车牌号：";
+			        str+=data[i].carnumber+"</h5>";
+			        str+="<h5 style='float: right;' class='mui-ellipsis mui-text-right'>空位数：";
+			        str+=data[i].carnum+"</h5></div>";
+			        str+="<div class='mui-table-cell mui-col-xs-4 mui-text-right'><span class='mui-h5 mui-ellipsis'>";        
+			        
+			        var d=data[i].datetime;
+			        str+=d+"</span></div></div></li>";
+			        if(i!=len-1){
+			        	str+="<hr>";
+			        }
+				}
+				$("#kongul").append(str);
+			}
+		function carReadOnly(id){
+			var result={id:id};
+			//alert(id);
+			mui.openWindow({
+					url: "supages/subCarReadOnly.html",
+					id: "subCarReadOnly",
+					waiting: {autoShow: false},
+					extras: {result: result} 
+			});
+		}
+		function releaseReadOnly(id){
+			var result={id:id};
+			//alert(id);
+			mui.openWindow({
+					url: "supages/subReleaseReadOnly.html",
+					id: "subReleaseReadOnly",
+					waiting: {autoShow: false},
+					extras: {result: result} 
+			});
+		}
+		function setCardata(data) {
+				var str="";
+				var len=data.length>4?4:data.length;
+				for(var i=0;i<len;i++){
+					str+="<li onclick='carReadOnly("+data[i].id+")' class='mui-table-view-cell mui-media mui-col-xs-12'><div class='mui-table'><div class='mui-table-cell mui-col-xs-8'>";
+					str+="<h4 class='mui-ellipsis mui-text-left'>";
+	     			str+=data[i].startPlace+" -- "+data[i].endPlace+"</h4>";	
+			        str+="<h5 style='float: left;' class='mui-ellipsis mui-text-left'>发布人：";        
+			        str+=data[i].username+"</h5><br><h5 class='mui-ellipsis mui-text-left'>";
+			        str+="联系方式："+data[i].phone+"</h5>";
+			        str+="<h5 class='mui-ellipsis mui-text-left'>乘车人数：";
+			        str+=data[i].carnum+"</h5></div>";
+			        str+="<div class='mui-table-cell mui-col-xs-4 mui-text-right'><span class='mui-h5 mui-ellipsis'>";        
+			        var d=data[i].datetime;
+			        
+			        str+=d+"</span></div></div></li>";
+			        if(i!=len-1){
+			        	str+="<hr>";
+			        }
+			        
+				}
+				$("#carul").append(str);
+			}
+		window.addEventListener("change", function(e) {
+				location.reload();
+		});
+		document.getElementById("moreCar").addEventListener("tap",function(){
+			mui.openWindow({
+							url: "moreCar.html",
+							id: "moreCar",
+							waiting: {
+								autoShow: false
+						}
+			});
+		});
+		document.getElementById("moreRelease").addEventListener("tap",function(){
+			mui.openWindow({
+							url: "moreRelease.html",
+							id: "moreRelease",
+							waiting: {
+								autoShow: false
+						}
+			});
+		});
+	</script>
+</html>

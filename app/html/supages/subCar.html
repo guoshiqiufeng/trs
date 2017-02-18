@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>顺风车</title>
+    <link href="../../css/mui.min.css" rel="stylesheet"/>
+</head>
+<body>
+     <div class="mui-content mui-scroll-wrapper" id="refreshContainer">
+			<div class="mui-scroll">
+				<ul class="mui-table-view mui-grid-view" id="carul">
+				</ul>
+			</div>
+	</div>
+     <script type="text/javascript" src="../../js/lib/jquery.min.js" ></script>	
+     <script src="../../js/mui.min.js" type="text/javascript"></script>
+     <script type="text/javascript" src="../../js/jquery.min.js" ></script>
+     <script>
+     	mui.init({
+				pullRefresh: {
+					container: "#refreshContainer",
+					down: {
+						callback: pulldownRefresh
+					},
+					up: {
+						callback: pullupGetMore
+					}
+				}
+			});
+		var maxPage=0;
+		
+     	mui.plusReady(function(){
+     		setdata();
+     		var len=JSON.parse(plus.storage.getItem("cardata")).length;
+     		//console.log(len);
+     		maxPage=len;
+     		
+     	});
+     	
+		var page = 0;
+		
+		function setdata(){
+			var url=plus.storage.getItem("url");
+			var wt=plus.nativeUI.showWaiting(); 
+			mui.ajax({
+			    url:url+'/car/carSelect.do',
+			    dataType: 'json',
+			    type:'post',
+			    timeout: 10000,
+			    success:function(data){
+			    	wt.close();
+			    	
+			    	if(data[0].status==1){
+			    		//setCardata(data[0].car);
+			    		getlist(0);
+			    		data=JSON.stringify(data[0].car);
+			      		plus.storage.setItem("cardata",data); 
+			    	}
+			    },
+			    error:function(){
+			    	wt.close();
+			        var data=JSON.parse(plus.storage.getItem("cardata"));
+			        if(data){
+			        	getlist(0);
+			        }else{
+			        	mui.alert("连接服务器失败，请稍候重试！");
+			        }
+			    }
+			});
+		}
+		
+		var list = document.getElementById("carul");
+
+		function pulldownRefresh() { //下拉刷新函数
+				list.innerHTML="";
+				getlist(0);
+				setTimeout(function() {
+					/**
+					 * 下拉刷新结束
+					 * http://dev.dcloud.net.cn/mui/pulldown/
+					 */
+					mui("#refreshContainer").pullRefresh().endPulldownToRefresh();
+					// 重置上拉刷新，以及页数
+					mui("#refreshContainer").pullRefresh().enablePullupToRefresh();
+					page = 0;
+				}, 1500);
+			}
+		
+		function pullupGetMore() { //上拉加载函数
+				if (page >= maxPage-4) {
+					/**
+					 * 没有更多数据，结束上拉加载
+					 */
+					mui("#refreshContainer").pullRefresh().endPullupToRefresh(true);
+					return;
+				}
+				page=page+4;
+				
+				getlist(page);
+				setTimeout(function() {
+					mui("#refreshContainer").pullRefresh().endPullupToRefresh();
+				}, 1000);
+			}
+		
+		function getlist(page){
+			var data=JSON.parse(localStorage.getItem("cardata"));
+			var str="";
+			var len=data.length-page-4>0?page+4:data.length;
+				for(var i=page;i<len;i++){
+					str+="<li class='mui-table-view-cell mui-media mui-col-xs-12'><div class='mui-table'><div class='mui-table-cell mui-col-xs-8'>";
+					str+="<h4 class='mui-ellipsis mui-text-left'>";
+	     			str+=data[i].startPlace+" -- "+data[i].endPlace+"</h4>";	
+			        str+="<h5 style='float: left;' class='mui-ellipsis mui-text-left'>发布人：";        
+			        str+=data[i].username+"</h5><br><h5 class='mui-ellipsis mui-text-left'>";
+			        str+="联系方式："+data[i].phone+"</h5>";
+			        str+="<h5 class='mui-ellipsis mui-text-left'>乘车人数：";
+			        str+=data[i].carnum+"</h5></div>";
+			        str+="<div class='mui-table-cell mui-col-xs-4 mui-text-right'><span class='mui-h5 mui-ellipsis'>";        
+			        var d=data[i].datetime;
+			        
+			        str+=d+"</span></div></div></li>";
+			        if(i!=len-1){
+			        	str+="<hr>";
+			        }
+				}
+				$("#carul").append(str);
+		}
+		
+		
+     </script>
+     
+     
+</body>
+</html>

@@ -1,0 +1,31 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>trs-parent</artifactId>
+  	<groupId>cn.autumn.trs</groupId>
+  	<version>0.0.1-SNAPSHOT</version>
+    <relativePath>../trs-parent/pom.xml</relativePath>
+  </parent>
+  <artifactId>trs-biz</artifactId>
+  <name>trs-biz</name>
+  <packaging>jar</packaging>
+  <url>http://maven.apache.org</url>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+  	<!-- 依赖cient-->
+    <dependency>
+      <groupId>cn.autumn.trs</groupId>
+      <artifactId>trs-service-client</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <!-- 引入阿里druid -->
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>druid</artifactId>
+		<version>1.0.13</version>
+	</dependency>
+  </dependencies>
+</project>

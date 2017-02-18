@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>用户资料</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style type="text/css">
+			#edit {
+				color: red;
+				margin-top: 10px;
+			}
+			
+			.mui-button-row {
+				padding: 10px;
+			}
+			
+			.mui-btn-block {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我发布的顺风车</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="info">
+				
+			</ul>
+			
+		</div>
+
+		
+
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript" src="../js/jquery.min.js" ></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				
+				var userInfo = plus.storage.getItem("userInfo");
+				
+				var user = JSON.parse(userInfo);
+				
+				var token = user.token;
+				
+				var url=plus.storage.getItem("url");
+				var wt = plus.nativeUI.showWaiting(); 
+				mui.ajax({
+					type: "post",
+					url: url+"/car/carSelect.do",
+					async: true,
+					data: {
+						token:token
+					},
+					dataType: "json",
+					timeout: 1000,
+					success: function(data) {
+						wt.close();
+						
+						if(data[0].status==1){
+				    		setdata(data[0].car);
+				    	}
+					},
+					error: function(xhr, type, errorThrown) {
+						wt.close();
+						plus.nativeUI.toast("出错了！");
+						console.log(errorThrown);
+					}
+				});
+				
+			});
+			function setdata(data) {
+				var str="";
+				for(var i=0;i<data.length;i++){
+					str+="<li class='mui-table-view-cell mui-media mui-col-xs-12'><div class='mui-table'><div class='mui-table-cell mui-col-xs-8'>";
+					str+="<h4 class='mui-ellipsis mui-text-left'>";
+	     			str+=data[i].startPlace+" -- "+data[i].endPlace+"</h4>";	
+			        str+="<h5 style='float: left;' class='mui-ellipsis mui-text-left'>发布人：";        
+			        str+=data[i].username+"</h5><br><h5 class='mui-ellipsis mui-text-left'>";
+			        str+="联系方式："+data[i].phone+"</h5>";
+			        str+="<h5 style='float: left;' class='mui-ellipsis mui-text-left'>乘车人数：";
+			        str+=data[i].carnum+"</h5></div>";
+			        str+="<div class='mui-table-cell mui-col-xs-4 mui-text-right'><span class='mui-h5 mui-ellipsis'>";        
+			        var d=data[i].datetime.toString().substring(0,16);
+			        str+=d+"</span><br><button onclick='edit("+data[i].id+")' class='mui-btn mui-btn-primary mui-btn-outlined'>编辑</button><br><button style='margin-top:5px;' class='mui-btn mui-btn-danger mui-btn-outlined' onclick='del("+data[i].id+")'>删除</button></div></div></li>";
+			        
+				}
+				$("#info").append(str);
+			}
+			function edit(ids){
+				var result={id:ids};
+				mui.openWindow({
+					url: "editCarInfo.html",
+					id: "editCarInfo",
+					waiting: {autoShow: false},
+					extras: {result: result} 
+				});
+			}
+			function del(id){
+				plus.nativeUI.confirm("确定删除？", function(e) {
+						if (e.index == 0) {
+							delajax(id);
+						}
+					}, "", ["是", "否"]);
+			}
+			
+			function delajax(id){
+					var ww = plus.nativeUI.showWaiting();
+					var index=plus.webview.getWebviewById("main-index.html");
+					if(!plus){
+						return;
+					}
+					var url=plus.storage.getItem("url");
+					mui.ajax({
+					type: "post",
+					url: url+"/car/carDelete.do",
+					async: true,
+					data: {
+						id:id
+					},
+					dataType: "json",
+					timeout: 1000,
+					success: function(data) {
+						ww.close();
+						
+						if(data[0].status==1){
+				    		plus.nativeUI.toast("删除成功！");
+				    		mui.fire(index, "change", {
+							
+							});
+				    		location.reload();
+				    	}
+					},
+					error: function(xhr, type, errorThrown) {
+						ww.close();
+						plus.nativeUI.toast("出错了！");
+						console.log(errorThrown);
+						}
+					});
+				}
+			window.addEventListener("change", function(e) {
+				location.reload();
+			});
+		</script>
+	</body>
+
+</html>
