@@ -1,0 +1,6 @@
+C:\Users\皓强\Desktop\TRS\trs\trs\bin\trs.dll.config
+C:\Users\皓强\Desktop\TRS\trs\trs\bin\trs.dll
+C:\Users\皓强\Desktop\TRS\trs\trs\bin\trs.pdb
+C:\Users\皓强\Desktop\TRS\trs\trs\obj\Debug\trs.dll
+C:\Users\皓强\Desktop\TRS\trs\trs\obj\Debug\trs.pdb
+C:\Users\皓强\Desktop\TRS\trs\trs\obj\Debug\trs.csprojResolveAssemblyReference.cache

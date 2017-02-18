@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A73510DF-DC79-44F3-B0B3-D7C2F38FA10A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TakeRing</RootNamespace>
+    <AssemblyName>trs</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\user\user.jpg" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BLL\carBLL.cs" />
+    <Compile Include="BLL\userBLL.cs" />
+    <Compile Include="DAL\carDAL.cs" />
+    <Compile Include="DAL\userDAL.cs" />
+    <Compile Include="web\car\carEdit.ashx.cs">
+      <DependentUpon>carEdit.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\car\carInsert.ashx.cs">
+      <DependentUpon>carInsert.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\car\carSelect.ashx.cs">
+      <DependentUpon>carSelect.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\car\carSelectOne.ashx.cs">
+      <DependentUpon>carSelectOne.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\img\imgUpdate.ashx.cs">
+      <DependentUpon>imgUpdate.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\img\imgUpload.ashx.cs">
+      <DependentUpon>imgUpload.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\account\Login.ashx.cs">
+      <DependentUpon>Login.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="MODEL\car.cs" />
+    <Compile Include="MODEL\user.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="web\account\Register.ashx.cs">
+      <DependentUpon>Register.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\release\releaseDelete.ashx.cs">
+      <DependentUpon>releaseDelete.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\release\releaseInsert.ashx.cs">
+      <DependentUpon>releaseInsert.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\release\releaseSelect.ashx.cs">
+      <DependentUpon>releaseSelect.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\token\token.ashx.cs">
+      <DependentUpon>token.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="web\token\tokenUpdate.ashx.cs">
+      <DependentUpon>tokenUpdate.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Utility\EncryptHelper.cs" />
+    <Compile Include="Utility\SqlHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web\account\Login.ashx" />
+    <Content Include="web\account\Register.ashx" />
+    <Content Include="web\img\imgUpload.ashx" />
+    <Content Include="web\img\imgUpdate.ashx" />
+    <None Include="Properties\PublishProfiles\web.pubxml" />
+    <Content Include="web\token\token.ashx" />
+    <Content Include="web\token\tokenUpdate.ashx" />
+    <Content Include="web\release\releaseInsert.ashx" />
+    <Content Include="web\release\releaseSelect.ashx" />
+    <Content Include="web\release\releaseDelete.ashx" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="web\car\carInsert.ashx" />
+    <Content Include="web\car\carSelect.ashx" />
+    <Content Include="web\car\carSelectOne.ashx" />
+    <Content Include="web\car\carEdit.ashx" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63916</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:63916/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
